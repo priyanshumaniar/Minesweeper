@@ -1,0 +1,154 @@
+CONTROLS:
+
+"The Game is purely using keyboard as a controller"
+
+SELECT: Enter Row and Col to select a tile.
+DIG: Select and enter 'd' to dig the selected tile.
+FLAG: Select and enter 'f' to flag the selected tile.
+UNFLAG: Select a flagged tile and flag it again to unflag it.
+
+HOW TO PLAY:
+
+Start with digging any tile.
+When you DIG you get CLUE as a number in the tile.
+The number shows number of mines hidden under adjacent tiles.
+If there is no number in dug tile all tiles around it are clear.
+Mark any suspected mine tile as FLAG.
+If you think your suspected mine tile is clear, UNFLAG it.
+
+You cannot dig or flag any tile which is already dug.
+
+If you dig all the clear tiles without digging any mine tiles, you win.
+But be careful not to dig any mine tile,
+it will trigger all the mines and you will lose the game.
+Best Of Luck!
+
+---------------------------------------------------------------------------------
+
+There are three levels for this game- 
+Beginner - 7 * 7 Board and 7 Mines
+Intermediate - 9 * 9 Board and 13 Mines
+Advanced - 11 * 11 Board and 21 Mines
+
+Probability of finding a mine - 
+Beginner  level -  7/49 (0.14)
+Intermediate level - 13/81 (0.16)
+Advanced level - 21/121 (0.17)
+
+---------------------------------------------------------------------------------
+
+Following are the 10 functions used in code in code-order:-
+
+void gameload(int limit): 
+	To load linked list structure according to difficulty of game.
+
+void display(int limit):
+	Displays the game layout which includes flag count and game board.
+
+int subcountbomb(struct ground *g):
+
+char countbomb(struct ground *g):
+	Counts mines around the tile to be dug and returns value of number of mines around.
+	This number is displayed in game board as a hint for players.
+
+void digaround(struct ground *);
+
+void subdigaround(struct ground *g):
+
+void digaround(struct ground *g):
+	Digs the tile which has no mine around that is g[row][col]->inground == ' '.
+	Calls g[row][col]->inground = countbomb(g[row][col])
+	If g[row][col]->inground == ' '
+	Calls digaround(g[row][col])
+	So it is a recursive function.
+	It prevents game from getting boring as digging tiles without mines around one by one makes game boring and tedious to play.
+
+void random(int limit,int totbomb,int *arrayexr,int *arrayexc):
+	Sets bomb at random tiles by selecting random row col for linked list nodes with help of rand() and srand() functions.
+	Also excludes tiles of excluderand().
+	By this function game gets a new board on every execution and every time when played again.
+
+void excluderand(int limit,int totbomb,struct ground *g,int row,int col):
+	Stores row col list in arrayexr and arrayexc so that they can be excluded from random() function.
+	Calls random(limit,totbomb,arrayexr,arrayexc)
+
+void validate(int *data):
+	It validates int type data for any char type entry
+
+int firstdig(int limit):
+	Decides totbomb on basis of limit.
+	Calls display(limit)
+	Gets first row col input to initialize game without digging bomb in first go by excluding first row col to dig from having bomb.
+	Calls excluderand(limit,totbomb,g[row][col],row,col)
+	Calls digaround(g[row][col])
+	Calls display(limit)
+
+void playgame(int limit, int totbomb):
+	Controls while loop which ends (1)when all tiles except mines are dug or (2)any mine is dug.
+	In case 1 you win and in case 2 you lose.
+	Calls display(limit) on each while loop repetition.
+	Also asks player to dig or flag and controls flag and dig count.
+	When dig is selected it
+		Calls g[row][col]->inground = countbomb(g[row][col])
+		g[row][col]->groundptr = &g[row][col]->inground
+		If g[row][col]->inground == ' '
+		Calls digaround(g[row][col])
+		dig++
+	When flag is selected
+		If not flagged
+		g[row][col]->onground=16
+		flag--
+		If already flagged then it is unflagged
+		g[row][col]->onground='#'
+		flag++
+
+void emptymemory(int limit):
+	It frees the memory each time game ends.
+	So that memory is not wasted if players play game again and again without terminating program.
+
+int main(): The driver function
+	Gets limit (difficulty level).
+	Calls gameload(limit)
+	Calls totbomb=firstdig(limit)
+	Calls playgame(limit,totbomb)
+	Calls emptymemory(limit)
+	Controls loop for play again and exit.
+
+---------------------------------------------------------------------------------
+
+This is the structure for linked list:-
+int limit;
+struct ground{
+	struct ground *up;
+	struct ground *down;
+	struct ground *left;
+	struct ground *right;
+	struct ground *upright;
+	struct ground *upleft;
+	struct ground *downright;
+	struct ground *downleft;
+	char inground; 
+	char onground;
+	char *groundptr;
+} *g[12][12];
+
+And these are global variables used in all functions:-
+int arrayr[30],arrayc[30],dig=0,flag=0;
+
+---------------------------------------------------------------------------------
+
+In the game console colors are used to make it more fun.
+SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), X)
+Here X is number for color.
+Used colors are given below with their respective numbers:-
+
+1 blue
+2 green
+4 red
+5 purple
+6 dark yellow
+7 white
+8 grey
+11 cyan blue
+12 light red
+13 light purple

@@ -1,0 +1,50 @@
+HOW TO START:
+
+Run the program (README.md explains how to build and run it).
+Choose a level: type 1 for Easy (7 * 7 board, 7 mines), 2 for Medium (9 * 9 board, 13 mines)
+or 3 for Hard (11 * 11 board, 22 mines) and press Enter.
+The board appears with every tile covered by #.
+When a game ends, type 1 to play again or 2 to exit.
+
+CONTROLS:
+
+"The game is played purely using the keyboard as a controller."
+
+SELECT: Enter Row and Col to select a tile.
+        Type the row number and press Enter, then the column number and press Enter.
+        Rows and columns are counted from 0, as numbered along the top and the left of the board.
+DIG: Select and enter 'd' to dig the selected tile.
+FLAG: Select and enter 'f' to flag the selected tile.
+UNFLAG: Select a flagged tile and flag it again to unflag it.
+Type 'd' and 'f' as small letters and press Enter after them.
+
+ON THE BOARD:
+
+#       a covered tile
+1 to 8  a clue on a dug tile
+blank   a dug tile with no mine around it
+F       a flag (an arrow symbol in the Windows console)
+*       a mine (shown only when you lose)
+"Flags Left" is the number of mines minus the flags you have placed.
+
+HOW TO PLAY:
+
+Start with digging any tile. Your first dig is always safe: the mines are placed
+only after it, and never on that tile.
+When you DIG you get a CLUE as a number in the tile.
+The number shows how many mines are hidden under the adjacent tiles, that is the
+8 tiles touching it (up, down, left, right and the 4 diagonals).
+If there is no number in a dug tile, all tiles around it are clear, so the game digs
+them for you. If one of them is also empty, the tiles around it are dug too, so a
+whole clear area can open at once. A flag on a tile dug this way is given back.
+Mark any suspected mine tile as FLAG. A flag is only a reminder for you: it does not
+stop you from digging that tile.
+If you think your suspected mine tile is clear, UNFLAG it.
+
+You cannot dig or flag any tile which is already dug.
+
+If you dig all the clear tiles without digging any mine tiles, you win.
+You do not have to flag the mines to win.
+But be careful not to dig any mine tile,
+it will trigger all the mines, the board will show every mine and you will lose the game.
+Best Of Luck!
