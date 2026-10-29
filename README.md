@@ -2,6 +2,14 @@
 
 A console Minesweeper game I wrote in C for my B.Tech Data Structures (DSA) course project at GLS University, together with every version of the code from the first draft to the final game, and a second implementation on a plain 2D array.
 
+## Screenshots
+
+| Start screen | A lost game |
+| --- | --- |
+| ![The start screen: controls, how to play, and the choice of Easy, Medium or Hard](screenshots/start-screen.png) | ![A lost Medium (9 x 9) game: digging a mine reveals every mine on the board](screenshots/lost-game.png) |
+
+The start screen shows the controls and rules, then asks for a level. In the lost game, a mine was dug on the Medium board, so every mine (`*`) is shown, along with the numbers already uncovered and the two flags (`F`) that were placed.
+
 ## What Minesweeper is
 
 Minesweeper is a one-player puzzle. The board is a grid of covered tiles, and some of them hide mines. You uncover ("dig") tiles one at a time. A dug tile that is not a mine shows a number: how many of the 8 tiles touching it hide a mine. Using these numbers you work out where the mines are. You win when every tile without a mine has been dug. You lose if you dig a mine.
@@ -45,6 +53,7 @@ The same rules are in [`Howtoplay`](Howtoplay) and, with a description of the co
 | `Howtoplay` | Controls and rules as plain text. |
 | `minesweeper_plan_1`, `minesweeper_plan_2` | Design notes: plan 1 goes with the two drafts, plan 2 with the final game. |
 | `minesweeper_description.docx` / `.pdf` | Project description: rules, levels and every function explained. |
+| `screenshots/` | The start screen and a lost game, shown above. |
 
 ## Build and run
 
